@@ -1,11 +1,18 @@
 import os
 import argparse
+from Utility_package import url_utilities
 
 
 def main(database: str, url_list_file: str):
+    big_word_list = []
     print("we are going to work with" + database)
     print("we are going to work with" + url_list_file)
-
+    urls = url_utilities.load_urls_from_file(url_list_file)
+    for url in urls:
+        print("reading" +url)
+        page_content= url_utilities.load_page(url=url)
+        words =url_utilities.script_page(page_content= page_content)
+        big_word_list.extend(words)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
